@@ -10,7 +10,7 @@ import { UserRole } from "@prisma/client";
 import { toast } from "sonner";
 
 const AdminPage = () => {
-  const [state, setState] = React.useState<any>(null);
+
   const onServerActionClick = () => {
     admin().then((data) => {
       if (data.error) {
