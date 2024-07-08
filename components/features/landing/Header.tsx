@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type Props = {};
 
@@ -19,12 +20,14 @@ export default function Header({}: Props) {
           <ol>What is SYAB?</ol>
         </nav>
         <div className="flex gap-3">
+            <Link href="/auth/login">
           <Button
             variant="ghost"
             className="border-2 rounded-md border-white text-white h-11 bg-transparent hover:border-blue-500 hover:text-blue-500 hover:bg-transparent"
           >
             Log in
           </Button>
+            </Link>
           <Button
             className="bg-green-500 hover:bg-green-600 h-11"
             variant="ghost"
