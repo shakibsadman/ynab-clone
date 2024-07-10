@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/drawer";
 import StatusBtn from "./statusbtn";
 import { Button } from "@/components/ui/button";
+import SelectStatus from "./select-status";
+import SelectPerson from "./select-person";
+import SelectHome from "./select-home";
 
 type Props = {};
 
@@ -42,23 +45,19 @@ export default function InfoForm({}: Props) {
             ></div>
           </div>
           <div className="h-full p-5">
-            <h1 className="mb-2 text-xl font-semibold">
-              How do you feel about your finances today?
-            </h1>
-
-            <div className="flex flex-col gap-2">
-              {FinanceStatus.map((status) => (
-                <StatusBtn
-                  onClick={() => setStatus(status.value)}
-                  selected={fStatus === status.value}
-                  text={status.text}
-                  key={status.id}
-                />
-              ))}
-            </div>
+            {currentStep === 0 && (
+              <SelectStatus fStatus={fStatus} setStatus={setStatus} />
+            )}
+            {currentStep === 1 && <SelectPerson />}
+            {currentStep === 2 && <SelectHome />}
           </div>
           <div className="flex w-full justify-end">
-            <Button variant="secondary">Continue</Button>
+            <Button
+              onClick={() => setCurrentStep(currentStep + 1)}
+              variant="secondary"
+            >
+              Continue
+            </Button>
           </div>
         </DrawerContent>
       </Drawer>
