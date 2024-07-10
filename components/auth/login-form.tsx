@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { Mail } from "lucide-react";
 
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
@@ -55,15 +56,6 @@ export const LoginForm = () => {
             form.reset();
             setError(data.error);
           }
-
-          if (data?.success) {
-            form.reset();
-            setSuccess(data.success);
-          }
-
-          if (data?.twoFactor) {
-            setShowTwoFactor(true);
-          }
         })
         .catch(() => setError("Something went wrong"));
     });
@@ -71,6 +63,7 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
+    title="Log In"
       headerLabel="Welcome back"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
@@ -107,12 +100,16 @@ export const LoginForm = () => {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input
+                        <div className="flex items-center gap-3 group focus-within:border-blue-500 rounded-md p-2 focus:border-blue-500 border-2">
+                        <Mail/>
+                        <input
+                           className="focus:outline-none "
                           {...field}
                           disabled={isPending}
                           placeholder="john.doe@example.com"
                           type="email"
                         />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
