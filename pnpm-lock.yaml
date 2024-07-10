@@ -113,6 +113,9 @@ importers:
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+      vaul:
+        specifier: ^0.9.1
+        version: 0.9.1(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -2549,6 +2552,12 @@ packages:
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
+
+  vaul@0.9.1:
+    resolution: {integrity: sha512-fAhd7i4RNMinx+WEm6pF3nOl78DFkAazcN04ElLPFF9BMCNGbY/kou8UMhIcicm0rJCNePJP0Yyza60gGOD0Jw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -5158,6 +5167,15 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@9.0.1: {}
+
+  vaul@0.9.1(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    transitivePeerDependencies:
+      - '@types/react'
+      - '@types/react-dom'
 
   webidl-conversions@3.0.1: {}
 

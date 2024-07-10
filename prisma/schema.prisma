@@ -25,8 +25,48 @@ model User {
   role          UserRole @default(USER)
   accounts      Account[]
   isTwoFactorEnabled Boolean @default(false)
-  twoFactorConfirmation TwoFactorConfirmation?
+  twoFactorConfirmation           TwoFactorConfirmation?
+  budgets   Budget[]
+  is_first_login Boolean @default(true)
 }
+
+model Budget {
+  id        String      @id @default(cuid())
+  name      String
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  categories Category[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Category {
+  id           String      @id @default(cuid())
+  name         String
+  type         String   // Now a string to allow custom types
+  budget       Budget   @relation(fields: [budgetId], references: [id])
+  budgetId     String
+  parentId     String?     // For nested categories
+  parent       Category? @relation("NestedCategories", fields: [parentId], references: [id])
+  subcategories Category[] @relation("NestedCategories")
+  items        Item[]
+  order        Int      // To maintain user-defined order
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+model Item {
+  id         Int      @id @default(autoincrement())
+  name       String
+  assigned   Float
+  activity   Float    @default(0)
+  available  Float
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+
 
 model Account {
   id                 String  @id @default(cuid())
