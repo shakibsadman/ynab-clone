@@ -3,17 +3,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FinanceStatus } from "@/data/constants";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import StatusBtn from "./statusbtn";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+
 import { Button } from "@/components/ui/button";
 import SelectStatus from "./select-status";
 import SelectPerson from "./select-person";
@@ -21,13 +12,14 @@ import SelectHome from "./select-home";
 import DebtStatus from "./debt-status";
 import Transport from "./transport";
 import RegularSpend from "./regular-spend";
+import SneakExpense from "./sneak-expense";
 
 type Props = {};
 
 export default function InfoForm({}: Props) {
   const [isOpen, setOpen] = React.useState(true);
   const [fStatus, setStatus] = React.useState("");
-  const [currentStep, setCurrentStep] = React.useState(5);
+  const [currentStep, setCurrentStep] = React.useState(6);
   const {
     register,
     handleSubmit,
@@ -56,6 +48,8 @@ export default function InfoForm({}: Props) {
             {currentStep === 3 && <DebtStatus />}
             {currentStep === 4 && <Transport />}
             {currentStep === 5 && <RegularSpend />}
+
+            {currentStep === 6 && <SneakExpense />}
           </div>
           <div className="flex w-full justify-end">
             <Button
