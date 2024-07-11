@@ -18,13 +18,16 @@ import { Button } from "@/components/ui/button";
 import SelectStatus from "./select-status";
 import SelectPerson from "./select-person";
 import SelectHome from "./select-home";
+import DebtStatus from "./debt-status";
+import Transport from "./transport";
+import RegularSpend from "./regular-spend";
 
 type Props = {};
 
 export default function InfoForm({}: Props) {
   const [isOpen, setOpen] = React.useState(true);
   const [fStatus, setStatus] = React.useState("");
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [currentStep, setCurrentStep] = React.useState(5);
   const {
     register,
     handleSubmit,
@@ -35,12 +38,12 @@ export default function InfoForm({}: Props) {
   return (
     <div>
       <Drawer open={isOpen}>
-        <DrawerContent className="mx-5 h-[500px] px-3 pb-8">
+        <DrawerContent className="mx-5 h-[550px] px-3 pb-8">
           <div className="h-2.5 w-full rounded-full bg-gray-200">
             <div
               className="h-2.5 rounded-full bg-blue-600"
               style={{
-                width: `${((currentStep + 1) / 5) * 100}%`,
+                width: `${((currentStep + 1) / 10) * 100}%`,
               }}
             ></div>
           </div>
@@ -50,6 +53,9 @@ export default function InfoForm({}: Props) {
             )}
             {currentStep === 1 && <SelectPerson />}
             {currentStep === 2 && <SelectHome />}
+            {currentStep === 3 && <DebtStatus />}
+            {currentStep === 4 && <Transport />}
+            {currentStep === 5 && <RegularSpend />}
           </div>
           <div className="flex w-full justify-end">
             <Button

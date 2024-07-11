@@ -6,10 +6,10 @@ export default function SelectHome({}: Props) {
   const [selectedOption, setSelectedOption] = React.useState("");
   return (
     <div>
-      <h1 className="text-center text-xl font-medium">
+      <h1 className="mb-3 text-center text-xl font-medium">
         🏠 Tell us about your home?
       </h1>
-      <div className="">
+      <div className="mx-auto flex max-w-sm flex-col gap-3">
         <button
           onClick={() => setSelectedOption("rent")}
           className="rounded-md bg-gray-100 p-4"
