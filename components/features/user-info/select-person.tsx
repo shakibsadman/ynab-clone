@@ -1,17 +1,14 @@
-import React from "react";
+"use client";
+import React, { use } from "react";
 import { Check } from "lucide-react";
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 
 type Props = {};
 
 export default function SelectPerson({}: Props) {
-  const [persons, setPersons] = React.useState<string[]>([]);
-  const handleSelect = (person: string) => {
-    if (persons.includes(person)) {
-      setPersons(persons.filter((p) => p !== person));
-    } else {
-      setPersons([...persons, person]);
-    }
-  };
+  const { persons, setPerson } = useBudgetStore();
+  // const [persons, setPersons] = React.useState<string[]>([]);
+
   return (
     <div>
       <h1 className="mb-3 text-center text-xl font-semibold">
@@ -19,7 +16,7 @@ export default function SelectPerson({}: Props) {
       </h1>
       <div className="mx-auto grid max-w-screen-md grid-cols-2 justify-items-center gap-3">
         <button
-          onClick={() => handleSelect("myself")}
+          onClick={() => setPerson("myself")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>Myself</span>
@@ -31,7 +28,7 @@ export default function SelectPerson({}: Props) {
           ) : null}
         </button>
         <button
-          onClick={() => handleSelect("partner")}
+          onClick={() => setPerson("partner")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>My partner</span>
@@ -43,7 +40,7 @@ export default function SelectPerson({}: Props) {
           ) : null}
         </button>
         <button
-          onClick={() => handleSelect("adults")}
+          onClick={() => setPerson("adults")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>Other adults</span>
@@ -55,7 +52,7 @@ export default function SelectPerson({}: Props) {
           ) : null}
         </button>
         <button
-          onClick={() => handleSelect("kids")}
+          onClick={() => setPerson("kids")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>Kids</span>
@@ -67,7 +64,7 @@ export default function SelectPerson({}: Props) {
           ) : null}
         </button>
         <button
-          onClick={() => handleSelect("pets")}
+          onClick={() => setPerson("pets")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>Pets</span>
@@ -79,7 +76,7 @@ export default function SelectPerson({}: Props) {
           ) : null}
         </button>
         <button
-          onClick={() => handleSelect("teens")}
+          onClick={() => setPerson("teens")}
           className="w-80 rounded-md bg-gray-100 p-4 text-left"
         >
           <span>Teens (13+)</span>

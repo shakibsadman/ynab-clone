@@ -1,14 +1,15 @@
-import React from "react";
+"use client";
+import React, { use } from "react";
 import { FinanceStatus } from "@/data/constants";
 import { cn } from "@/lib/utils";
 import StatusBtn from "./statusbtn";
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 
-type Props = {
-  fStatus: string;
-  setStatus: (status: string) => void;
-};
+type Props = {};
 
-export default function SelectStatus({ fStatus, setStatus }: Props) {
+export default function BudgetStatus({}: Props) {
+  const { budget_status: fStatus, setBudgetStatus: setStatus } =
+    useBudgetStore();
   return (
     <div className="flex flex-col gap-2">
       <h1 className="mb-2 text-xl font-semibold">

@@ -1,4 +1,10 @@
-export const FinanceStatus = [
+type TBudgetStatus = {
+  id: string;
+  text: string;
+  value: "stressed" | "unsure" | "stable" | "confident";
+};
+
+export const FinanceStatus: TBudgetStatus[] = [
   { id: "1", text: "😫 Stressed-I want to hide", value: "stressed" },
   {
     id: "2",
