@@ -5,11 +5,11 @@ interface BudgetStore {
   budget_status: "stressed" | "unsure" | "stable" | "confident" | undefined;
   persons: string[];
   home_status: "rent" | "own" | "others" | undefined;
-  loan: string[] | null;
+  debt: string[] | null;
   transport: string;
   reguler_spend: string[];
   sneak_expense: string[];
-  subscritions: string[];
+  subscriptions: string[];
   saving: string[];
   extras: string[];
 
@@ -21,13 +21,15 @@ interface BudgetStore {
     status: "stressed" | "unsure" | "stable" | "confident",
   ) => void;
   setPerson: (person: string) => void;
-  setLoan: (loanItem: string) => void;
+  setHome: (home: "rent" | "own" | "others") => void;
+  setdebt: (debtItem: string) => void;
+  setTransport: (mode: string) => void;
   setRegulerSpend: (item: string) => void;
   setSneakExpense: (item: string) => void;
   setSubscription: (item: string) => void;
   setSaving: (item: string) => void;
   setExtras: (item: string) => void;
-  canProceed?: () => boolean;
+  canProceed: () => boolean;
 }
 
 export const useBudgetStore = create<BudgetStore>((set, get) => ({
@@ -35,11 +37,11 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
   current_step: 1,
   persons: [],
   home_status: undefined,
-  loan: null,
+  debt: null,
   transport: "",
   reguler_spend: [],
   sneak_expense: [],
-  subscritions: [],
+  subscriptions: [],
   saving: [],
   extras: [],
   // go to next step
@@ -54,7 +56,7 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
           case 3:
             return state.home_status !== undefined;
           case 4:
-            return state.loan !== null;
+            return state.debt !== null;
           case 5:
             return state.transport !== "";
           case 6:
@@ -62,7 +64,7 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
           case 7:
             return state.sneak_expense.length > 0;
           case 8:
-            return state.subscritions.length > 0;
+            return state.subscriptions.length > 0;
           case 9:
             return state.saving.length > 0;
           case 10:
@@ -95,14 +97,22 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
         ? state.persons.filter((p) => p !== person)
         : [...state.persons, person],
     })),
-
-  setLoan: (loanItem) =>
+  setHome: (home) =>
     set((state) => ({
-      loan: state.loan
-        ? state.loan.includes(loanItem)
-          ? state.loan.filter((item) => item !== loanItem)
-          : [...state.loan, loanItem]
-        : [loanItem],
+      home_status: home,
+    })),
+
+  setdebt: (debtItem) =>
+    set((state) => ({
+      debt: state.debt
+        ? state.debt.includes(debtItem)
+          ? state.debt.filter((item) => item !== debtItem)
+          : [...state.debt, debtItem]
+        : [debtItem],
+    })),
+  setTransport: (mode) =>
+    set((state) => ({
+      transport: mode,
     })),
 
   setRegulerSpend: (item) =>
@@ -121,9 +131,9 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
 
   setSubscription: (item) =>
     set((state) => ({
-      subscritions: state.subscritions.includes(item)
-        ? state.subscritions.filter((i) => i !== item)
-        : [...state.subscritions, item],
+      subscriptions: state.subscriptions.includes(item)
+        ? state.subscriptions.filter((i) => i !== item)
+        : [...state.subscriptions, item],
     })),
 
   setSaving: (item) =>
@@ -143,22 +153,24 @@ export const useBudgetStore = create<BudgetStore>((set, get) => ({
     const state = get();
     switch (state.current_step) {
       case 1:
-        return state.persons.length > 0;
+        return state.budget_status !== undefined;
       case 2:
-        return state.home_status !== undefined;
+        return state.persons.length > 0;
       case 3:
-        return state.loan !== null;
+        return state.home_status !== undefined;
       case 4:
-        return state.transport !== "";
+        return state.debt !== null;
       case 5:
-        return state.reguler_spend.length > 0;
+        return state.transport !== "";
       case 6:
-        return state.sneak_expense.length > 0;
+        return state.reguler_spend.length > 0;
       case 7:
-        return state.subscritions.length > 0;
+        return state.sneak_expense.length > 0;
       case 8:
-        return state.saving.length > 0;
+        return state.subscriptions.length > 0;
       case 9:
+        return state.saving.length > 0;
+      case 10:
         return state.extras.length > 0;
       default:
         return false;

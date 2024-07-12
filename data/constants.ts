@@ -22,3 +22,16 @@ export const FinanceStatus: TBudgetStatus[] = [
     value: "confident",
   },
 ];
+
+export const extraList = [
+  { icon: "🍽️", name: "Dining out" },
+  { icon: "❤️", name: "Charity" },
+  { icon: "👥", name: "My spending money" },
+  { icon: "🍿", name: "Entertainment" },
+  { icon: "🎁", name: "Gifts" },
+  { icon: "👥", name: "Their spending money" },
+  { icon: "🎮", name: "Video games" },
+  { icon: "🖼️", name: "Home decor" },
+  { icon: "🌱", name: "Hobbies" },
+  { icon: "🎉", name: "Celebrations" },
+];

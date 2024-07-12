@@ -3,6 +3,7 @@ import React from "react";
 import { Check } from "lucide-react";
 import { map } from "underscore";
 import Title from "./title";
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 
 const subscriptionList = [
   "🎵 Music",
@@ -17,7 +18,7 @@ const subscriptionList = [
 type Props = {};
 
 export default function Subcribtions({}: Props) {
-  const [subcriptions, setSubcriptions] = React.useState<String[]>([]);
+  const { subscriptions, setSubscription } = useBudgetStore();
   return (
     <div>
       <Title>🍿 WHich of these subscriptions do you have?</Title>
@@ -26,10 +27,10 @@ export default function Subcribtions({}: Props) {
           <button
             key={i}
             className="mb-2 flex w-96 cursor-pointer justify-between rounded-md bg-gray-100 p-4 hover:bg-gray-100"
-            onClick={() => setSubcriptions([...subcriptions, s])}
+            onClick={() => setSubscription(s)}
           >
             {s}
-            {subcriptions.includes(s) && <Check className="text-green-500" />}
+            {subscriptions.includes(s) && <Check className="text-green-500" />}
           </button>
         ))}
       </div>

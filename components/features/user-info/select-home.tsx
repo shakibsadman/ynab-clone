@@ -1,9 +1,11 @@
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 import React from "react";
+import { Check } from "lucide-react";
 
 type Props = {};
 
 export default function SelectHome({}: Props) {
-  const [selectedOption, setSelectedOption] = React.useState("");
+  const { home_status, setHome } = useBudgetStore();
   return (
     <div>
       <h1 className="mb-3 text-center text-xl font-medium">
@@ -11,22 +13,40 @@ export default function SelectHome({}: Props) {
       </h1>
       <div className="mx-auto flex max-w-sm flex-col gap-3">
         <button
-          onClick={() => setSelectedOption("rent")}
-          className="rounded-md bg-gray-100 p-4"
+          onClick={() => setHome("rent")}
+          className="rounded-md bg-gray-100 p-4 text-left"
         >
           I rent
+          {/* check mark if selectd */}
+          {home_status === "rent" ? (
+            <span className="float-right">
+              <Check className="text-green-500" />
+            </span>
+          ) : null}
         </button>
         <button
-          onClick={() => setSelectedOption("own")}
-          className="rounded-md bg-gray-100 p-4"
+          onClick={() => setHome("own")}
+          className="rounded-md bg-gray-100 p-4 text-left"
         >
           I own
+          {/* check mark if selectd */}
+          {home_status === "own" ? (
+            <span className="float-right">
+              <Check className="text-green-500" />
+            </span>
+          ) : null}
         </button>
         <button
-          onClick={() => setSelectedOption("others")}
-          className="rounded-md bg-gray-100 p-4"
+          onClick={() => setHome("others")}
+          className="rounded-md bg-gray-100 p-4 text-left"
         >
           Other
+          {/* check mark if selectd */}
+          {home_status === "others" ? (
+            <span className="float-right">
+              <Check className="text-green-500" />
+            </span>
+          ) : null}
         </button>
       </div>
     </div>

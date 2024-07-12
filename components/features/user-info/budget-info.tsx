@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 
 import { Drawer, DrawerContent } from "@/components/ui/drawer";
 
@@ -35,7 +35,7 @@ export default function BudgetInfo({}: Props) {
             <div
               className="h-2.5 rounded-full bg-blue-600"
               style={{
-                width: `${((current_step + 1) / 9) * 100}%`,
+                width: `${(current_step / 10) * 100}%`,
               }}
             ></div>
           </div>
@@ -51,15 +51,28 @@ export default function BudgetInfo({}: Props) {
             {current_step === 9 && <Saving />}
             {current_step === 10 && <ExtraSpend />}
           </div>
-          <div className="flex w-full justify-end">
-            {current_step > 1 && <Button onClick={prevStep}>Back</Button>}
-            <Button
-              disabled={!canProceed}
-              onClick={nextStep}
-              variant="secondary"
-            >
-              Continue
-            </Button>
+          <div className="flex w-full justify-end gap-5 p-3">
+            {current_step > 1 && (
+              <Button variant="secondary" onClick={prevStep}>
+                Back
+              </Button>
+            )}
+            {current_step < 10 && (
+              <Button
+                disabled={!canProceed()}
+                onClick={nextStep}
+                className={cn({
+                  "bg-gray-100": !canProceed,
+                })}
+              >
+                Continue
+              </Button>
+            )}
+            {current_step === 10 && (
+              <Button disabled={!canProceed} type="submit">
+                Show Me The Money(Plan)!
+              </Button>
+            )}
           </div>
         </DrawerContent>
       </Drawer>

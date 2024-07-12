@@ -2,6 +2,7 @@
 import React from "react";
 import { map } from "underscore";
 import { Check } from "lucide-react";
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 const regularSpend = [
   "🛒 Grocerices",
   "📱 Phone",
@@ -12,16 +13,9 @@ const regularSpend = [
 type Props = {};
 
 export default function RegularSpend({}: Props) {
-  const [regularSepnd, setRegularSpend] = React.useState<String[]>([]);
-  const handleClick = (option: string) => {
-    if (regularSepnd.includes(option)) {
-      const newRegularSpend = regularSepnd.filter((item) => item !== option);
-      setRegularSpend(newRegularSpend);
-    } else {
-      const newRegularSpend = [...regularSepnd, option];
-      setRegularSpend(newRegularSpend);
-    }
-  };
+  // const [regularSepnd, setRegularSpend] = React.useState<String[]>([]);
+  const { reguler_spend, setRegulerSpend } = useBudgetStore();
+
   return (
     <div className="">
       <h2 className="mb-3 text-center text-xl font-semibold">
@@ -30,12 +24,12 @@ export default function RegularSpend({}: Props) {
       <div className="flex flex-col items-center gap-3">
         {map(regularSpend, (item, index) => (
           <button
-            onClick={() => handleClick(item)}
+            onClick={() => setRegulerSpend(item)}
             key={index + item}
             className="w-96 rounded-md bg-gray-100 p-4 text-left"
           >
             {item}
-            {regularSepnd.includes(item) && (
+            {reguler_spend.includes(item) && (
               <span className="float-right">
                 <Check className="text-green-500" />
               </span>

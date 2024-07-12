@@ -2,6 +2,7 @@
 import React from "react";
 import _ from "underscore";
 import { Check } from "lucide-react";
+import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 
 const tansports = [
   "🚗 Car",
@@ -16,10 +17,7 @@ const tansports = [
 type Props = {};
 
 export default function Transport({}: Props) {
-  const [selected, setSelected] = React.useState<string | null>(null);
-  const handleSelect = (option: string) => {
-    setSelected(option);
-  };
+  const { transport, setTransport } = useBudgetStore();
   return (
     <div>
       <h1 className="mb-3 text-center text-xl font-semibold">
@@ -30,12 +28,12 @@ export default function Transport({}: Props) {
           return (
             <button
               key={t}
-              onClick={() => handleSelect(t)}
+              onClick={() => setTransport(t)}
               className="w-80 rounded-md bg-gray-100 p-4 text-left"
             >
               {t}
               {/* if this transport is selected */}
-              {selected === t && (
+              {transport === t && (
                 <span className="float-right">
                   <Check className="text-green-500" />
                 </span>
