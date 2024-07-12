@@ -23,9 +23,11 @@ type Props = {};
 
 export default function BudgetInfo({}: Props) {
   const [isOpen, setOpen] = React.useState(true);
-  const [fStatus, setStatus] = React.useState("");
 
   const { current_step, nextStep, prevStep, canProceed } = useBudgetStore();
+  const handleSubmit = () => {
+    setOpen(false);
+  };
 
   return (
     <div>
@@ -69,7 +71,11 @@ export default function BudgetInfo({}: Props) {
               </Button>
             )}
             {current_step === 10 && (
-              <Button disabled={!canProceed} type="submit">
+              <Button
+                onClick={handleSubmit}
+                disabled={!canProceed()}
+                type="submit"
+              >
                 Show Me The Money(Plan)!
               </Button>
             )}
