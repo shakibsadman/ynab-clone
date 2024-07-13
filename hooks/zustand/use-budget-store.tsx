@@ -34,7 +34,7 @@ interface BudgetStore {
 
 export const useBudgetStore = create<BudgetStore>((set, get) => ({
   budget_status: undefined,
-  current_step: 1,
+  current_step: 3,
   persons: [],
   home_status: undefined,
   debt: null,

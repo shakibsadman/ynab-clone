@@ -6,7 +6,7 @@ import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 
 import { LoginSchema } from "@/schemas";
 import { Input } from "@/components/ui/input";
@@ -63,7 +63,7 @@ export const LoginForm = () => {
 
   return (
     <CardWrapper
-    title="Log In"
+      title="Log In"
       headerLabel="Welcome back"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
@@ -72,77 +72,60 @@ export const LoginForm = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
-            {showTwoFactor && (
+            <>
               <FormField
                 control={form.control}
-                name="code"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        placeholder="123456"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
-            {!showTwoFactor && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <div className="flex items-center gap-3 group focus-within:border-blue-500 rounded-md p-2 focus:border-blue-500 border-2">
-                        <Mail/>
+                      <div className="group flex items-center gap-3 rounded-md border-2 p-2 focus-within:border-blue-500 focus:border-blue-500">
+                        <Mail className="h-5 w-5" />
                         <input
-                           className="focus:outline-none "
+                          className="focus:outline-none"
                           {...field}
                           disabled={isPending}
                           placeholder="john.doe@example.com"
                           type="email"
                         />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <div className="group flex items-center gap-3 rounded-md border-2 p-2 focus-within:border-blue-500 focus:border-blue-500">
+                        <Lock className="h-5 w-5" />
+                        <input
+                          className="focus:outline-none"
                           {...field}
                           disabled={isPending}
                           placeholder="******"
                           type="password"
                         />
-                      </FormControl>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal"
-                      >
-                        <Link href="/auth/reset">Forgot password?</Link>
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
+                      </div>
+                    </FormControl>
+                    <Button
+                      size="sm"
+                      variant="link"
+                      asChild
+                      className="px-0 font-normal"
+                    >
+                      <Link href="/auth/reset">Forgot password?</Link>
+                    </Button>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
           </div>
           <FormError message={error || urlError} />
           <FormSuccess message={success} />

@@ -53,33 +53,6 @@ export default function BudgetInfo({}: Props) {
             {current_step === 9 && <Saving />}
             {current_step === 10 && <ExtraSpend />}
           </div>
-          <div className="flex w-full justify-end gap-5 p-3">
-            {current_step > 1 && (
-              <Button variant="secondary" onClick={prevStep}>
-                Back
-              </Button>
-            )}
-            {current_step < 10 && (
-              <Button
-                disabled={!canProceed()}
-                onClick={nextStep}
-                className={cn({
-                  "bg-gray-100": !canProceed,
-                })}
-              >
-                Continue
-              </Button>
-            )}
-            {current_step === 10 && (
-              <Button
-                onClick={handleSubmit}
-                disabled={!canProceed()}
-                type="submit"
-              >
-                Show Me The Money(Plan)!
-              </Button>
-            )}
-          </div>
         </DrawerContent>
       </Drawer>
     </div>

@@ -1,13 +1,22 @@
 "use client";
+
 import React, { use } from "react";
 import { Check } from "lucide-react";
 import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
-
+import savePeople from "@/actions/budget/save-people";
+import { Button } from "@/components/ui/button";
 type Props = {};
 
 export default function SelectPerson({}: Props) {
-  const { persons, setPerson } = useBudgetStore();
+  const { persons, setPerson, nextStep, prevStep, canProceed } =
+    useBudgetStore();
   // const [persons, setPersons] = React.useState<string[]>([]);
+  const handleSavePeople = async () => {
+    const data = await savePeople(persons);
+    if (data) {
+      nextStep();
+    }
+  };
 
   return (
     <div>
@@ -89,6 +98,18 @@ export default function SelectPerson({}: Props) {
             ) : null}
           </button>
         </div>
+      </div>
+      <div className="mt-3 flex justify-end gap-5">
+        <Button onClick={prevStep} className="">
+          Go back
+        </Button>
+        <Button
+          disabled={!canProceed()}
+          onClick={handleSavePeople}
+          className=""
+        >
+          Continue
+        </Button>
       </div>
     </div>
   );
