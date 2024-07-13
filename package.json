@@ -44,9 +44,11 @@
     "sonner": "^1.3.1",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "underscore": "^1.13.6",
     "uuid": "^9.0.1",
     "vaul": "^0.9.1",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -54,6 +56,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/underscore": "^1.11.15",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",

@@ -1,4 +1,10 @@
-export const FinanceStatus = [
+type TBudgetStatus = {
+  id: string;
+  text: string;
+  value: "stressed" | "unsure" | "stable" | "confident";
+};
+
+export const FinanceStatus: TBudgetStatus[] = [
   { id: "1", text: "😫 Stressed-I want to hide", value: "stressed" },
   {
     id: "2",
@@ -15,4 +21,17 @@ export const FinanceStatus = [
     text: "😀 Confident- Ready For my TED Talk",
     value: "confident",
   },
+];
+
+export const extraList = [
+  { icon: "🍽️", name: "Dining out" },
+  { icon: "❤️", name: "Charity" },
+  { icon: "👥", name: "My spending money" },
+  { icon: "🍿", name: "Entertainment" },
+  { icon: "🎁", name: "Gifts" },
+  { icon: "👥", name: "Their spending money" },
+  { icon: "🎮", name: "Video games" },
+  { icon: "🖼️", name: "Home decor" },
+  { icon: "🌱", name: "Hobbies" },
+  { icon: "🎉", name: "Celebrations" },
 ];

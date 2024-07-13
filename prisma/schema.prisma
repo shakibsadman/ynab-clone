@@ -33,35 +33,26 @@ model User {
 model Budget {
   id        String      @id @default(cuid())
   name      String
+  status    String?
+  people    String [] @default([])
   user      User      @relation(fields: [userId], references: [id])
   userId    String
-  categories Category[]
+  items     Item []
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
-model Category {
-  id           String      @id @default(cuid())
-  name         String
-  type         String   // Now a string to allow custom types
-  budget       Budget   @relation(fields: [budgetId], references: [id])
-  budgetId     String
-  parentId     String?     // For nested categories
-  parent       Category? @relation("NestedCategories", fields: [parentId], references: [id])
-  subcategories Category[] @relation("NestedCategories")
-  items        Item[]
-  order        Int      // To maintain user-defined order
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
+
 model Item {
   id         Int      @id @default(autoincrement())
   name       String
-  assigned   Float
+  group      String?
+  value      String? 
+  assigned   Float    @default(0)
   activity   Float    @default(0)
   available  Float
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String
+  budget     Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  budgetId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
