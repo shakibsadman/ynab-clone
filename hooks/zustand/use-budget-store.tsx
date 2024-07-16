@@ -5,10 +5,10 @@ interface BudgetStore {
   budget_status: "stressed" | "unsure" | "stable" | "confident" | undefined;
   persons: string[];
   home_status: "rent" | "own" | "others" | undefined;
-  debt: string[] | null;
+  debt: { id: string; name: string; type: string }[] | null;
   transport: string;
-  reguler_spend: string[];
-  sneak_expense: string[];
+  reguler_spend: { group: string; type: string; name: string }[];
+  sneak_expense: { name: string; type: string; group: string }[];
   subscriptions: string[];
   saving: string[];
   extras: string[];
@@ -22,10 +22,18 @@ interface BudgetStore {
   ) => void;
   setPerson: (person: string) => void;
   setHome: (home: "rent" | "own" | "others") => void;
-  setdebt: (debtItem: string) => void;
+  setdebt: (debtItem: { id: string; name: string; type: string }) => void;
   setTransport: (mode: string) => void;
-  setRegulerSpend: (item: string) => void;
-  setSneakExpense: (item: string) => void;
+  setRegulerSpend: (item: {
+    group: string;
+    type: string;
+    name: string;
+  }) => void;
+  setSneakExpense: (item: {
+    name: string;
+    type: string;
+    group: string;
+  }) => void;
   setSubscription: (item: string) => void;
   setSaving: (item: string) => void;
   setExtras: (item: string) => void;
@@ -34,7 +42,7 @@ interface BudgetStore {
 
 export const useBudgetStore = create<BudgetStore>((set, get) => ({
   budget_status: undefined,
-  current_step: 3,
+  current_step: 7,
   persons: [],
   home_status: undefined,
   debt: null,

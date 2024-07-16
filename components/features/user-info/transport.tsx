@@ -3,6 +3,8 @@ import React from "react";
 import _ from "underscore";
 import { Check } from "lucide-react";
 import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
+import { Button } from "@/components/ui/button";
+import saveTransportToDb from "@/actions/budget/transport";
 
 const tansports = [
   "🚗 Car",
@@ -17,7 +19,15 @@ const tansports = [
 type Props = {};
 
 export default function Transport({}: Props) {
-  const { transport, setTransport } = useBudgetStore();
+  const { transport, setTransport, canProceed, nextStep, prevStep } =
+    useBudgetStore();
+
+  const handleContinue = async () => {
+    const res = await saveTransportToDb(transport);
+    if (res) {
+      nextStep();
+    }
+  };
   return (
     <div>
       <h1 className="mb-3 text-center text-xl font-semibold">
@@ -44,6 +54,14 @@ export default function Transport({}: Props) {
       </div>
       <div className="flex items-center justify-center">
         <button className="mt-3 text-blue-500">None of this apply to me</button>
+      </div>
+      <div className="flex justify-end gap-5">
+        <Button>
+          <span onClick={() => prevStep()}>Back</span>
+        </Button>
+        <Button disabled={!canProceed()} onClick={handleContinue}>
+          <span>Continue</span>
+        </Button>
       </div>
     </div>
   );

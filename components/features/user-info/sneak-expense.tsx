@@ -4,23 +4,22 @@ import { map } from "underscore";
 import { Check } from "lucide-react";
 import Title from "./title";
 import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
-
-const sneakExpense = [
-  "💳 Aunual credit card fees",
-  "🩺 Medical Expenses",
-  "💸Taxes or other fees",
-];
-
+import { sneakExpenseList } from "@/data/constants";
+import { createMany } from "@/actions/budget/item";
+import { Button } from "@/components/ui/button";
 type Props = {};
 
 export default function SneakExpense({}: Props) {
-  const { sneak_expense, setSneakExpense } = useBudgetStore();
+  const { sneak_expense, setSneakExpense, nextStep, prevStep, canProceed } =
+    useBudgetStore();
+
+  const handleContinue = async () => {};
 
   return (
     <div>
       <Title>😥 What are some expenses sneak up on you?</Title>
       <div className="flex flex-col items-center gap-3">
-        {map(sneakExpense, (s, i) => (
+        {map(sneakExpenseList, (s, i) => (
           <button
             key={i}
             className={`flex w-96 cursor-pointer justify-between rounded-md bg-gray-100 p-4 hover:bg-gray-100 ${
@@ -28,10 +27,14 @@ export default function SneakExpense({}: Props) {
             }`}
             onClick={() => setSneakExpense(s)}
           >
-            <span> {s}</span>
+            <span> {s.name}</span>
             {sneak_expense?.includes(s) && <Check className="text-green-500" />}
           </button>
         ))}
+      </div>
+      <div className="flex justify-end gap-5">
+        <Button variant="ghost">Go back</Button>
+        <Button disabled={!canProceed()}>Continue</Button>
       </div>
     </div>
   );
