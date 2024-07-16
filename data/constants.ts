@@ -23,6 +23,25 @@ export const FinanceStatus: TBudgetStatus[] = [
   },
 ];
 
+export const regularSpendList = [
+  { name: "🛒 Grocerices", type: "grocerices", group: "needs" },
+  { name: "📱 Phone", type: "phone", group: "bills" },
+  { name: "💻 Interent", type: "internet", group: "bills" },
+  { name: "💇 Personal Care", type: "personal_care", group: "wants" },
+  { name: "👖 Clothes", type: "clothes", group: "needs" },
+];
+
+export const sneakExpenseList = [
+  {
+    name: "💳 Aunual credit card fees",
+    type: "credit_card",
+    group: "expense",
+  },
+  { name: "🩺 Medical Expenses", type: "medical", group: "expense" },
+  { name: "💸Taxes or other fees", type: "taxes", group: "expense" },
+];
+const sneakExpense = ["💳 Aunual credit card fees"];
+
 export const extraList = [
   { icon: "🍽️", name: "Dining out" },
   { icon: "❤️", name: "Charity" },
