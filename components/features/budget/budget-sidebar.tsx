@@ -12,9 +12,11 @@ type Props = {};
 
 export default function BudgetSidebar({}: Props) {
   return (
-    <aside className="min-h-screen w-60 bg-[#19223c] text-white">
+    <aside className="min-h-screen w-60 bg-[#19223c] px-3 py-4 text-white">
       <DropdownMenu>
-        <DropdownMenuTrigger>Sadman Shakib Budget</DropdownMenuTrigger>
+        <DropdownMenuTrigger className="w-full py-2">
+          Sadman Shakib Budget
+        </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuItem>New Tab</DropdownMenuItem>
@@ -22,6 +24,13 @@ export default function BudgetSidebar({}: Props) {
           <DropdownMenuSeparator />
         </DropdownMenuContent>
       </DropdownMenu>
+      <div className="">
+        <ul>
+          <li>Budget</li>
+          <li>All Accounts</li>
+          <li>Reports</li>
+        </ul>
+      </div>
     </aside>
   );
 }

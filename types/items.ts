@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { Item } from "@prisma/client";
 
 export const ItemSchema = z.object({
   name: z.string(),
@@ -6,3 +7,7 @@ export const ItemSchema = z.object({
   group: z.string(),
 });
 export type TItem = z.infer<typeof ItemSchema>;
+
+export interface GroupedBudgetItems {
+  [key: string]: Item[];
+}
