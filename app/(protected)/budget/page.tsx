@@ -8,7 +8,7 @@ export default async function Budget() {
   return (
     <div>
       <BudgetInfo />
-      <div className="flex">
+      <div className="flex w-full">
         <BudgetSidebar />
         <BudgetTable items={items} />
       </div>
