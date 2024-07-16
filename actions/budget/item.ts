@@ -1,4 +1,7 @@
 "use server";
+import { getUserBudget } from "@/data/budget";
+import { getItemsByBudgetId } from "@/data/items";
+import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 
@@ -74,3 +77,16 @@ export async function create(item: TItems) {
   });
   return createdItem;
 }
+
+export const getItems = async () => {
+  const user = await currentUser();
+  if (!user?.id) {
+    return;
+  }
+  const dbUser = await getUserById(user.id);
+  if (!dbUser) return;
+  const budget = await getUserBudget(dbUser.id);
+  if (!budget) return;
+  const items = await getItemsByBudgetId(budget.id);
+  return items;
+};

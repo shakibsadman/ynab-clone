@@ -22,7 +22,7 @@ import { useBudgetStore } from "@/hooks/zustand/use-budget-store";
 type Props = {};
 
 export default function BudgetInfo({}: Props) {
-  const [isOpen, setOpen] = React.useState(true);
+  const [isOpen, setOpen] = React.useState(false);
 
   const { current_step, nextStep, prevStep, canProceed } = useBudgetStore();
   const handleSubmit = () => {
