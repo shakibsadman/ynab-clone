@@ -24,7 +24,7 @@ export default function BudgetGroup({ title, children }: Props) {
               "flex w-full flex-1 items-center justify-between bg-gray-100 py-2 text-sm font-medium transition-all [&[data-state=open]>svg]:rotate-180",
             )}
           >
-            <h1 className="capitalize">{title}</h1>
+            <h1 className="text-semibold capitalize">{title}</h1>
             <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
           </Collapsible.Trigger>
         </div>

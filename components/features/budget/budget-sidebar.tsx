@@ -1,4 +1,5 @@
 import React from "react";
+import { Plus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +8,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AddAccount from "./add-accuont";
 
 type Props = {};
 
 export default function BudgetSidebar({}: Props) {
   return (
-    <aside className="min-h-screen w-60 bg-[#19223c] px-3 py-4 text-white">
+    <aside className="min-h-screen w-80 bg-[#19223c] px-3 py-4 text-white">
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full py-2">
           Sadman Shakib Budget
@@ -26,10 +28,13 @@ export default function BudgetSidebar({}: Props) {
       </DropdownMenu>
       <div className="">
         <ul>
-          <li>Budget</li>
-          <li>All Accounts</li>
-          <li>Reports</li>
+          <li className="p-2">Budget</li>
+          <li className="p-2">All Accounts</li>
+          <li className="p-2">Reports</li>
         </ul>
+      </div>
+      <div className="">
+        <AddAccount />
       </div>
     </aside>
   );
