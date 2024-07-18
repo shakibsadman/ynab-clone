@@ -1,5 +1,10 @@
 import { getItems } from "@/actions/budget/item";
-import { BudgetSidebar, BudgetTable } from "@/components/features/budget";
+import {
+  BudgetHeader,
+  BudgetSidebar,
+  BudgetTable,
+} from "@/components/features/budget";
+import BudgetInspector from "@/components/features/budget/budget-inspecter";
 import BudgetInfo from "@/components/features/user-info/budget-info";
 
 import React from "react";
@@ -8,11 +13,16 @@ export default async function Budget() {
   const items = await getItems();
 
   return (
-    <div>
+    <div className="flex">
       <BudgetInfo />
-      <div className="flex w-full">
-        <BudgetSidebar />
-        <BudgetTable items={items} />
+      <BudgetSidebar />
+
+      <div className="w-full">
+        <BudgetHeader />
+        <div className="flex w-full bg-gray-200">
+          <BudgetTable items={items} />
+          <BudgetInspector />
+        </div>
       </div>
     </div>
   );

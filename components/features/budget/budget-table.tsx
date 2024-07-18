@@ -4,7 +4,6 @@ import { GroupedBudgetItems } from "@/types/items";
 
 import BudgetGroup from "./budget-group";
 import BudgetItem from "./budget-item";
-import BudgetHeader from "./budget-header";
 
 type Props = {
   items?: GroupedBudgetItems;
@@ -12,14 +11,12 @@ type Props = {
 
 export default function BudgetTable({ items }: Props) {
   return (
-    <div className="w-full px-5">
-      {/* budget header */}
-      <BudgetHeader />
+    <div className="w-full bg-white">
       {/* budget table header */}
       <div className="flex h-10 w-full items-center">
         <div className="flex w-full gap-3 pl-3">
           <input type="checkbox" />
-          <div className="flex w-3/5">
+          <div className="flex w-2/5">
             <span className="uppercase">Categroy</span>
           </div>
           <div className="w-1/5 text-center">

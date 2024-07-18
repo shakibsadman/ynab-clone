@@ -6,6 +6,7 @@ import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Item } from "@prisma/client";
 import type { GroupedBudgetItems } from "@/types/items";
+import { revalidatePath } from "next/cache";
 
 interface TItems {
   type: string;
@@ -102,4 +103,13 @@ export const getItems = async () => {
   }
   const groupedItems: GroupedBudgetItems = groupBudgetItems(items);
   return groupedItems;
+};
+
+export const updateItemById = async (id: number, data: Partial<Item>) => {
+  const item = await db.item.update({
+    where: { id },
+    data,
+  });
+  revalidatePath("/budget");
+  return item;
 };

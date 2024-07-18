@@ -1,15 +1,29 @@
 "use client";
 import React from "react";
-import { format } from "date-fns";
+import { format, addMonths, subMonths } from "date-fns";
+import { CircleChevronRight, CircleChevronLeft } from "lucide-react";
 
 type Props = {};
 
 export default function BudgetHeader({}: Props) {
-  const now = new Date();
+  const [now, setNow] = React.useState(new Date());
+
+  //add a month on the CircleCheronRight butotn
+  const addMonth = () => {
+    const nextMonth = addMonths(now, 1);
+    setNow(nextMonth);
+  };
+  //subtract a month on the CircleCheronLeft butotn
+  const subtractMonth = () => {
+    const prevMonth = subMonths(now, 1);
+    setNow(prevMonth);
+  };
   return (
-    <div className="py-3">
-      <div className="">
+    <div className="h-24 border-b px-3">
+      <div className="flex gap-2 py-4">
+        <CircleChevronLeft onClick={subtractMonth} className="text-blue-500" />
         <h1 className="text-xl font-bold">{format(now, "MMM yyyy")}</h1>
+        <CircleChevronRight onClick={addMonth} className="text-blue-500" />
       </div>
       <div className="rounded-md bg-green-200"></div>
     </div>
