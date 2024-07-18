@@ -1,4 +1,5 @@
 import { getItems } from "@/actions/budget/item";
+import readyToAssign from "@/actions/budget/ready-to-assign";
 import {
   BudgetHeader,
   BudgetSidebar,
@@ -11,6 +12,7 @@ import React from "react";
 
 export default async function Budget() {
   const items = await getItems();
+  const amount = await readyToAssign();
 
   return (
     <div className="flex">
@@ -18,7 +20,7 @@ export default async function Budget() {
       <BudgetSidebar />
 
       <div className="w-full">
-        <BudgetHeader />
+        <BudgetHeader availableBudget={amount?.availableBalance || 0} />
         <div className="flex w-full bg-gray-200">
           <BudgetTable items={items} />
           <BudgetInspector />
