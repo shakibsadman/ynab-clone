@@ -9,10 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AddAccount from "./add-accuont";
+import Accounts from "./accounts";
+import { getUserAccounts } from "@/actions/account";
 
 type Props = {};
 
-export default function BudgetSidebar({}: Props) {
+export default async function BudgetSidebar({}: Props) {
+  const accounts = await getUserAccounts();
   return (
     <aside className="min-h-screen w-80 bg-[#19223c] px-3 py-4 text-white">
       <DropdownMenu>
@@ -33,7 +36,9 @@ export default function BudgetSidebar({}: Props) {
           <li className="p-2">Reports</li>
         </ul>
       </div>
+
       <div className="">
+        <Accounts accounts={accounts} />
         <AddAccount />
       </div>
     </aside>

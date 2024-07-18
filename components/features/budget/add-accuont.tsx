@@ -29,14 +29,30 @@ import {
 } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { BankAccountSchema, TBankAccount } from "@/types/bank-account";
+import create from "@/actions/account/create";
+import { toast } from "sonner";
 
 type Props = {};
 
 export default function AddAccount({}: Props) {
-  const form = useForm();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const form = useForm<TBankAccount>({
+    resolver: zodResolver(BankAccountSchema),
+  });
+  const handleCreateAccount = async (data: TBankAccount) => {
+    const res = await create(data);
+    if (res) {
+      toast.success("Account is created");
+      setIsOpen(false);
+      form.reset();
+    }
+  };
   return (
     <div>
-      <Dialog>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger className="flex items-center gap-3 rounded-md bg-blue-500/20 px-3 py-2">
           <Plus className="h-5 w-5" />
           Add Account
@@ -81,28 +97,45 @@ export default function AddAccount({}: Props) {
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select a verified email to display" />
+                            <SelectValue placeholder="Select a account type ..." />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="m@example.com">
-                            m@example.com
+                          <SelectItem value="checking">Checking</SelectItem>
+                          <SelectItem value="savings">Saving</SelectItem>
+                          <SelectItem value="cash">Cash</SelectItem>
+                          <SelectItem value="credit card">
+                            Credit Card
                           </SelectItem>
-                          <SelectItem value="m@google.com">
-                            m@google.com
-                          </SelectItem>
-                          <SelectItem value="m@support.com">
-                            m@support.com
+                          <SelectItem value="line of credit">
+                            Line of Credit
                           </SelectItem>
                         </SelectContent>
                       </Select>
-                      <FormDescription>
-                        You can manage email addresses in your{" "}
-                      </FormDescription>
+
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="wroking_balance"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        What is your current account balance?
+                      </FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="h-40"></div>
+                <Button onClick={form.handleSubmit(handleCreateAccount)}>
+                  Next
+                </Button>
               </form>
             </Form>
           </div>

@@ -27,8 +27,24 @@ model User {
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation           TwoFactorConfirmation?
   budgets   Budget[]
+  bank_accounts                   BankAccount []
   is_first_login Boolean @default(true)
 }
+
+// Bank account details
+
+model BankAccount{
+  id                String          @id @default(cuid())
+  name              String
+  cleared_balance   Float           @default(0)
+  uncleared_balance Float           @default(0)
+  working_balance   Float           @default(0)
+  type              String
+  note              String?      
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+}
+
 
 model Budget {
   id        String      @id @default(cuid())
