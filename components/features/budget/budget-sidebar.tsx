@@ -17,7 +17,7 @@ type Props = {};
 export default async function BudgetSidebar({}: Props) {
   const accounts = await getUserAccounts();
   return (
-    <aside className="min-h-screen w-80 bg-[#19223c] px-3 py-4 text-white">
+    <aside className="min-h-screen w-80 bg-[#2c396a] px-3 py-4 text-white">
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full py-2">
           Sadman Shakib Budget
