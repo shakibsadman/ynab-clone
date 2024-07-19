@@ -44,7 +44,7 @@ export const EditableInput: React.FC<EditableInputProps> = ({
       ) : (
         <div
           onClick={handleClick}
-          className="block w-full cursor-pointer rounded-md border border-transparent px-3 py-1 text-right hover:border-blue-100 hover:bg-gray-100 sm:text-sm"
+          className="block w-32 cursor-pointer rounded-md border border-transparent px-3 py-1 text-right hover:border-blue-100 hover:bg-gray-100 sm:text-sm"
         >
           <span className="pr-1">{prefix}</span>
           {value}

@@ -34,11 +34,11 @@ export default function BudgetInspector({}: Props) {
               </h1>
             </div>
           </div>
-          <Card className="mb-6">
-            <CardContent>
-              <h1>Target</h1>
-            </CardContent>
-          </Card>
+          {/* Target starts */}
+          <div className="mb-3 rounded-md bg-white p-2 shadow-sm">
+            <h1>Target</h1>
+          </div>
+          {/* Target ends */}
           <Card>
             <CardContent>
               <h1>Notes</h1>
