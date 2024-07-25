@@ -1,5 +1,6 @@
 import React from "react";
-import { Plus } from "lucide-react";
+import { Plus, BarChart } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +21,11 @@ export default async function BudgetSidebar({}: Props) {
     <aside className="min-h-screen w-80 bg-[#2c396a] px-3 py-4 text-white">
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full py-2">
-          Sadman Shakib Budget
+          <div className="text-left">
+            <h1 className="font-semibold"> Sadman Shakib Budget</h1>
+
+            <p className="text-xs text-gray-300">sm.shakib007@gmail.com</p>
+          </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -31,9 +36,11 @@ export default async function BudgetSidebar({}: Props) {
       </DropdownMenu>
       <div className="">
         <ul>
-          <li className="p-2">Budget</li>
-          <li className="p-2">All Accounts</li>
-          <li className="p-2">Reports</li>
+          <li className="p-2">💷 Budget</li>
+          <li className="flex gap-1 p-2">
+            <BarChart /> Reflect
+          </li>
+          <li className="p-2">🏦 All Accounts</li>
         </ul>
       </div>
 

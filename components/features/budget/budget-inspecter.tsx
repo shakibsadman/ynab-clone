@@ -10,7 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@/components/ui/accordion";
+} from "@/components/ui/accordion-base";
+import { Button } from "@/components/ui/button";
 
 type Props = {};
 
@@ -28,15 +29,36 @@ export default function BudgetInspector({}: Props) {
       <ScrollArea className="h-[80vh]">
         <div className="">
           <div className="">
-            <div className="mb-3 rounded-md bg-white p-2 shadow-sm">
-              <h1>
-                Available <span>{selectedItem?.available}</span>
-              </h1>
+            <div className="mb-3 flex justify-between rounded-md bg-white p-2 shadow-sm">
+              <h1>Available</h1>
+              <div className="rounded-xl bg-gray-200 px-3">
+                <span>{selectedItem?.available}</span>
+              </div>
             </div>
           </div>
           {/* Target starts */}
           <div className="mb-3 rounded-md bg-white p-2 shadow-sm">
-            <h1>Target</h1>
+            <Accordion className="" type="single" collapsible>
+              <AccordionItem className="border-0" value="target">
+                <AccordionTrigger className="hover:no-underline">
+                  <h1>Target</h1>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="">
+                    <p>
+                      When you create a target, we’ll let you know how much
+                      money to set aside to stay on track over time.
+                    </p>
+                    <Button
+                      variant="ghost"
+                      className="mt-3 bg-gray-100 text-blue-500"
+                    >
+                      Create target
+                    </Button>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
           {/* Target ends */}
           <Card>
