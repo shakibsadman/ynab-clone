@@ -1,5 +1,5 @@
 import { create } from "zustand";
-
+import { TItem } from "@/types/items";
 interface BudgetStore {
   current_step: number;
   budget_status: "stressed" | "unsure" | "stable" | "confident" | undefined;
@@ -9,9 +9,17 @@ interface BudgetStore {
   transport: string;
   reguler_spend: { group: string; type: string; name: string }[];
   sneak_expense: { name: string; type: string; group: string }[];
-  subscriptions: string[];
-  saving: string[];
-  extras: string[];
+  subscriptions: {
+    name: string;
+    type: string;
+    group: string;
+  }[];
+  saving: {
+    name: string;
+    type: string;
+    group: string;
+  }[];
+  extras: TItem[];
 
   // next step
   nextStep: () => void;
@@ -34,15 +42,19 @@ interface BudgetStore {
     type: string;
     group: string;
   }) => void;
-  setSubscription: (item: string) => void;
-  setSaving: (item: string) => void;
-  setExtras: (item: string) => void;
+  setSubscription: (item: {
+    name: string;
+    type: string;
+    group: string;
+  }) => void;
+  setSaving: (item: TItem) => void;
+  setExtras: (item: TItem) => void;
   canProceed: () => boolean;
 }
 
 export const useBudgetStore = create<BudgetStore>((set, get) => ({
   budget_status: undefined,
-  current_step: 7,
+  current_step: 10,
   persons: [],
   home_status: undefined,
   debt: null,

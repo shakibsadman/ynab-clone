@@ -13,7 +13,12 @@ export default function SneakExpense({}: Props) {
   const { sneak_expense, setSneakExpense, nextStep, prevStep, canProceed } =
     useBudgetStore();
 
-  const handleContinue = async () => {};
+  const handleContinue = async () => {
+    const res = await createMany(sneak_expense);
+    if (res) {
+      nextStep();
+    }
+  };
 
   return (
     <div>
@@ -34,7 +39,9 @@ export default function SneakExpense({}: Props) {
       </div>
       <div className="flex justify-end gap-5">
         <Button variant="ghost">Go back</Button>
-        <Button disabled={!canProceed()}>Continue</Button>
+        <Button onClick={handleContinue} disabled={!canProceed()}>
+          Continue
+        </Button>
       </div>
     </div>
   );

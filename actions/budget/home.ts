@@ -11,7 +11,7 @@ export default async function setDbHome(value: string) {
   if (!budget) return;
   const item = await db.item.create({
     data: {
-      name: "home",
+      name: value,
       group: "bills",
       value,
       budgetId: budget.id,
