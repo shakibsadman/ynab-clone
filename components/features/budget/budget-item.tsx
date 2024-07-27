@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Item } from "@prisma/client";
+import { BudgetItem as Item } from "@prisma/client";
 import useBudgetInspector from "@/hooks/zustand/use-budget-inspector";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
@@ -23,6 +23,7 @@ export default function BudgetItem({ item }: Props) {
   const handleInput = async (data: any) => {
     await updateItemById(item.id, {
       assigned: Number(data.assigned),
+      available: parseFloat(data.assigned),
     });
   };
 

@@ -1,4 +1,5 @@
 import { getItems } from "@/actions/budget/item";
+import { getCategories } from "@/actions/budget/categories";
 import readyToAssign from "@/actions/budget/ready-to-assign";
 import {
   BudgetHeader,
@@ -11,19 +12,20 @@ import BudgetInfo from "@/components/features/user-info/budget-info";
 import React from "react";
 
 export default async function Budget() {
-  const items = await getItems();
-  const amount = await readyToAssign();
+  // const items = await getItems();
+  // const amount = await readyToAssign();
+  const categories = await getCategories();
 
   return (
     <div className="flex">
       <BudgetInfo />
       <BudgetSidebar />
-
       <div className="w-full">
-        <BudgetHeader availableBudget={amount?.availableBalance || 0} />
+        <BudgetHeader />
+        <pre>{JSON.stringify(categories, null, 2)}</pre>
         <div className="flex w-full bg-gray-200">
-          <BudgetTable items={items} />
-          <BudgetInspector />
+          <BudgetTable />
+          {/* <BudgetInspector /> */}
         </div>
       </div>
     </div>

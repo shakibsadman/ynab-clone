@@ -1,9 +1,11 @@
 import React from "react";
 
 import { GroupedBudgetItems } from "@/types/items";
+import { Plus } from "lucide-react";
 
 import BudgetGroup from "./budget-group";
 import BudgetItem from "./budget-item";
+import AddCategory from "./add-category";
 
 type Props = {
   items?: GroupedBudgetItems;
@@ -13,6 +15,9 @@ export default function BudgetTable({ items }: Props) {
   return (
     <div className="w-full bg-white">
       {/* budget table header */}
+      <div className="border-b px-5 py-2">
+        <AddCategory />
+      </div>
       <div className="flex h-10 w-full items-center">
         <div className="flex w-full gap-3 pl-3">
           <input type="checkbox" />
