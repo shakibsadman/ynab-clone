@@ -2,16 +2,18 @@ import React from "react";
 
 import { GroupedBudgetItems } from "@/types/items";
 import { Plus } from "lucide-react";
+import { map } from "underscore";
 
 import BudgetGroup from "./budget-group";
 import BudgetItem from "./budget-item";
 import AddCategory from "./add-category";
+import { Category, BudgetItem as TBudgetItem } from "@prisma/client";
 
 type Props = {
-  items?: GroupedBudgetItems;
+  categories: Category[];
 };
 
-export default function BudgetTable({ items }: Props) {
+export default function BudgetTable({ categories }: Props) {
   return (
     <div className="w-full bg-white">
       {/* budget table header */}
@@ -33,31 +35,22 @@ export default function BudgetTable({ items }: Props) {
         </div>
       </div>
       {/* budget table body */}
-      {items && (
-        <div className="w-full">
-          <BudgetGroup title="Bills">
-            <div className="">
-              {items.bills.map((item) => (
-                <BudgetItem key={item.id} item={item} />
-              ))}
-            </div>
-          </BudgetGroup>
-          <BudgetGroup title="Needs">
-            <div className="">
-              {items.needs.map((item) => (
-                <BudgetItem key={item.id} item={item} />
-              ))}
-            </div>
-          </BudgetGroup>
-          <BudgetGroup title="Wants">
-            <div className="">
-              {items.wants.map((item) => (
-                <BudgetItem key={item.id} item={item} />
-              ))}
-            </div>
-          </BudgetGroup>
-        </div>
-      )}
+
+      <div className="">
+        {map(categories, (category) => {
+          return (
+            <BudgetGroup
+              categoryId={category.id}
+              key={category.id}
+              title={category.name}
+            >
+              <div>
+                <pre>{JSON.stringify(category, null, 2)}</pre>
+              </div>
+            </BudgetGroup>
+          );
+        })}
+      </div>
     </div>
   );
 }

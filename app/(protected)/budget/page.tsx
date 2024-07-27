@@ -12,7 +12,6 @@ import BudgetInfo from "@/components/features/user-info/budget-info";
 import React from "react";
 
 export default async function Budget() {
-  // const items = await getItems();
   // const amount = await readyToAssign();
   const categories = await getCategories();
 
@@ -22,9 +21,8 @@ export default async function Budget() {
       <BudgetSidebar />
       <div className="w-full">
         <BudgetHeader />
-        <pre>{JSON.stringify(categories, null, 2)}</pre>
         <div className="flex w-full bg-gray-200">
-          <BudgetTable />
+          <BudgetTable categories={categories} />
           {/* <BudgetInspector /> */}
         </div>
       </div>

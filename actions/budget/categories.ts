@@ -10,6 +10,9 @@ export const getCategories = async () => {
 
   const categories = await db.category.findMany({
     where: { userId: user?.id },
+    include: {
+      budgetItems: true,
+    },
   });
   return categories;
 };
