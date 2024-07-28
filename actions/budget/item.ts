@@ -4,7 +4,7 @@ import { getItemsByBudgetId } from "@/data/items";
 import { getUserById } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Item } from "@prisma/client";
+import { BudgetItem as Item } from "@prisma/client";
 import type { GroupedBudgetItems } from "@/types/items";
 import { revalidatePath } from "next/cache";
 
@@ -12,6 +12,7 @@ interface TItems {
   type: string;
   group: string;
   name: string;
+  categoryId: string;
 }
 
 export async function createMany(items: TItems[]) {
@@ -35,13 +36,14 @@ export async function createMany(items: TItems[]) {
   if (!budget) {
     return;
   }
-  const item = await db.item.createMany({
+  const item = await db.budgetItem.createMany({
     data: items.map((item) => ({
       name: item.name,
       available: 0,
       value: item.type,
       group: item.group,
       budgetId: budget.id,
+      categoryId: item.categoryId,
     })),
   });
   return item;
@@ -69,13 +71,14 @@ export async function create(item: TItems) {
   });
   if (!budget) return;
   //create item
-  const createdItem = await db.item.create({
+  const createdItem = await db.budgetItem.create({
     data: {
       name: item.name,
       available: 0,
       value: item.type,
       group: item.group,
       budgetId: budget.id as string,
+      categoryId: item.categoryId,
     },
   });
   return createdItem;
@@ -105,8 +108,8 @@ export const getItems = async () => {
   return groupedItems;
 };
 
-export const updateItemById = async (id: number, data: Partial<Item>) => {
-  const item = await db.item.update({
+export const updateItemById = async (id: string, data: Partial<Item>) => {
+  const item = await db.budgetItem.update({
     where: { id },
     data,
   });

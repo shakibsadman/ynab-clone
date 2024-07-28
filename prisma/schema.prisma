@@ -16,19 +16,20 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
-  twoFactorConfirmation           TwoFactorConfirmation?
-  budgets   Budget[]
-  bank_accounts                   BankAccount []
-  is_first_login Boolean @default(true)
+  id                          String    @id @default(cuid())
+  name                        String?
+  email                       String?   @unique
+  emailVerified               DateTime?
+  image                       String?
+  password                    String?
+  role                        UserRole @default(USER)
+  accounts                    Account[]
+  isTwoFactorEnabled          Boolean @default(false)
+  twoFactorConfirmation       TwoFactorConfirmation?
+  budgets                     Budget[]
+  categories                  Category []
+  bank_accounts               BankAccount []
+  is_first_login              Boolean @default(true)
 }
 
 // Bank account details
@@ -42,6 +43,7 @@ model BankAccount{
   type              String
   note              String?      
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions      Transaction []
   userId            String
 }
 
@@ -53,14 +55,21 @@ model Budget {
   people    String [] @default([])
   user      User      @relation(fields: [userId], references: [id])
   userId    String
-  items     Item []
+  items     BudgetItem []
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
+model Category {
+  id          String          @id @default(cuid())
+  name        String
+  user        User         @relation(fields: [userId], references: [id])
+  userId      String
+  budgetItems BudgetItem[]
+}
 
-model Item {
-  id         Int      @id @default(autoincrement())
+model BudgetItem {
+  id         String      @id @default(cuid())
   name       String
   group      String?
   value      String? 
@@ -68,10 +77,13 @@ model Item {
   activity   Float    @default(0)
   available  Float    @default(0)
   target     Float?   @default(0)
-  budget     Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  budget     Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
   budgetId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+  transactions Transaction []
 }
 
 
@@ -89,11 +101,26 @@ model Account {
   scope              String?
   id_token           String?  @db.Text
   session_state      String?
-
+  
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
+
+
+model Transaction {
+  id           String        @id @default(cuid())
+  amount       Float
+  type         TransactionType
+  date         DateTime   @default(now())
+  description  String?
+  budgetItem   BudgetItem @relation(fields: [budgetItemId], references: [id])
+  budgetItemId String
+  account      BankAccount    @relation(fields: [accountId], references: [id])
+  accountId    String
+}
+
+
 
 model VerificationToken {
   id String @id @default(cuid())
@@ -129,4 +156,10 @@ model TwoFactorConfirmation {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+
+enum TransactionType {
+  INFLOW
+  OUTFLOW
 }
