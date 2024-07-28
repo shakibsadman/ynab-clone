@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib/db";
 import { currentUser } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 
 export const addBudgetItem = async (name: string, categoryId: string) => {
   const user = await currentUser();
@@ -18,6 +19,7 @@ export const addBudgetItem = async (name: string, categoryId: string) => {
       budgetId: budget.id,
     },
   });
+  revalidatePath("/budget");
   return {
     data: newBudgetItem,
     success: true,

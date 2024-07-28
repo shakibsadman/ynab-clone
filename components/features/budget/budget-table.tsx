@@ -1,16 +1,13 @@
 import React from "react";
-
-import { GroupedBudgetItems } from "@/types/items";
-import { Plus } from "lucide-react";
 import { map } from "underscore";
 
 import BudgetGroup from "./budget-group";
 import BudgetItem from "./budget-item";
 import AddCategory from "./add-category";
-import { Category, BudgetItem as TBudgetItem } from "@prisma/client";
+import { Category, Prisma } from "@prisma/client";
 
 type Props = {
-  categories: Category[];
+  categories: Prisma.CategoryGetPayload<{ include: { budgetItems: true } }>[];
 };
 
 export default function BudgetTable({ categories }: Props) {
@@ -45,7 +42,18 @@ export default function BudgetTable({ categories }: Props) {
               title={category.name}
             >
               <div>
-                <pre>{JSON.stringify(category, null, 2)}</pre>
+                {map(category.budgetItems, (item) => {
+                  return (
+                    <div className="flex px-3 py-1" key={item.id}>
+                      <input type="checkbox" />
+                      <div className="w-2/5">
+                        <h1 className="pl-2">{item.name}</h1>
+                      </div>
+                      <div className="">{item.assigned}</div>
+                      <div className="">{item.available}</div>
+                    </div>
+                  );
+                })}
               </div>
             </BudgetGroup>
           );
