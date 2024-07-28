@@ -25,12 +25,13 @@ import {
   PopoverTrigger,
   PopoverAnchor,
 } from "@/components/ui/popover";
+import { Category, Prisma } from "@prisma/client";
 
 type Props = {
-  items?: GroupedBudgetItems;
+  categories?: Prisma.CategoryGetPayload<{ include: { budgetItems: true } }>[];
 };
 
-export default function AssignPopover({ items }: Props) {
+export default function AssignPopover({ categories }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -52,15 +53,23 @@ export default function AssignPopover({ items }: Props) {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="">
-                <SelectGroup>
-                  <SelectLabel>Bills</SelectLabel>
-                </SelectGroup>
-                <SelectGroup>
-                  <SelectLabel>Needs</SelectLabel>
-                </SelectGroup>
-                <SelectGroup className="">
-                  <SelectLabel>Wants</SelectLabel>
-                </SelectGroup>
+                {categories &&
+                  map(categories, (ca) => {
+                    return (
+                      <SelectGroup key={ca.id}>
+                        <SelectLabel className="capitalize">
+                          {ca.name}
+                        </SelectLabel>
+                        {map(ca.budgetItems, (item) => {
+                          return (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectGroup>
+                    );
+                  })}
               </SelectContent>
             </Select>
           </div>

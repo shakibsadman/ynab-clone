@@ -43,16 +43,7 @@ export default function BudgetTable({ categories }: Props) {
             >
               <div>
                 {map(category.budgetItems, (item) => {
-                  return (
-                    <div className="flex px-3 py-1" key={item.id}>
-                      <input type="checkbox" />
-                      <div className="w-2/5">
-                        <h1 className="pl-2">{item.name}</h1>
-                      </div>
-                      <div className="">{item.assigned}</div>
-                      <div className="">{item.available}</div>
-                    </div>
-                  );
+                  return <BudgetItem key={item.id} item={item} />;
                 })}
               </div>
             </BudgetGroup>

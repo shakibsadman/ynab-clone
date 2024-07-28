@@ -7,7 +7,7 @@ async function calculateTotalAssignedBalance(
   budgetId: string,
 ): Promise<number> {
   try {
-    const items = await db.item.findMany({
+    const items = await db.budgetItem.findMany({
       where: {
         budgetId: budgetId,
       },

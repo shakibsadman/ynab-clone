@@ -23,7 +23,7 @@ export default async function Budget() {
         <BudgetHeader />
         <div className="flex w-full bg-gray-200">
           <BudgetTable categories={categories} />
-          {/* <BudgetInspector /> */}
+          <BudgetInspector />
         </div>
       </div>
     </div>
