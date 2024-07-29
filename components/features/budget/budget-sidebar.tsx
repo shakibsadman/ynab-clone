@@ -1,5 +1,6 @@
 import React from "react";
 import { Plus, BarChart } from "lucide-react";
+import LinkItem from "./link-item";
 
 import {
   DropdownMenu,
@@ -36,7 +37,7 @@ export default async function BudgetSidebar({}: Props) {
       </DropdownMenu>
       <div className="">
         <ul>
-          <li className="p-2">💷 Budget</li>
+          <LinkItem href="/budget">💷 Budget</LinkItem>
           <li className="flex gap-1 p-2">
             <BarChart /> Reflect
           </li>
