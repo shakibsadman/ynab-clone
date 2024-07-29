@@ -3,6 +3,7 @@ import React from "react";
 import AssignPopover from "./assign-popover";
 import { getCategories } from "@/actions/budget/categories";
 import readyToAssign from "@/actions/budget/ready-to-assign";
+import AddNewTransaction from "../transactions/add-new-transaction";
 
 import Month from "./month";
 
@@ -12,7 +13,7 @@ export default async function BudgetHeader({}: Props) {
   const categories = await getCategories();
   const data = await readyToAssign();
   return (
-    <div className="flex h-24 border-b px-3 py-1">
+    <div className="flex h-24 items-center border-b px-6 py-1">
       <Month />
       <div className="flex flex-1 items-center justify-center rounded-md">
         <div className="flex gap-16 rounded-md bg-green-200 px-3 py-2">
@@ -23,6 +24,7 @@ export default async function BudgetHeader({}: Props) {
           <AssignPopover categories={categories} />
         </div>
       </div>
+      <AddNewTransaction />
     </div>
   );
 }
