@@ -6,12 +6,14 @@ import readyToAssign from "@/actions/budget/ready-to-assign";
 import AddNewTransaction from "../transactions/add-new-transaction";
 
 import Month from "./month";
+import { getUserAccounts } from "@/actions/account";
 
 type Props = {};
 
 export default async function BudgetHeader({}: Props) {
   const categories = await getCategories();
   const data = await readyToAssign();
+  const accounts = await getUserAccounts();
   return (
     <div className="flex h-24 items-center border-b px-6 py-1">
       <Month />
@@ -24,7 +26,7 @@ export default async function BudgetHeader({}: Props) {
           <AssignPopover categories={categories} />
         </div>
       </div>
-      <AddNewTransaction />
+      <AddNewTransaction categories={categories} accounts={accounts} />
     </div>
   );
 }

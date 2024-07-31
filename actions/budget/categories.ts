@@ -15,6 +15,13 @@ export const getCategories = async () => {
         orderBy: {
           createdAt: "asc",
         },
+        include: {
+          transactions: {
+            orderBy: {
+              date: "asc",
+            },
+          },
+        },
       },
     },
   });

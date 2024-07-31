@@ -15,7 +15,7 @@ export default function LinkItem({ href, children }: Props) {
   return (
     <Link
       className={cn("flex gap-1 p-2", {
-        "bg-blue-100/10Ggg rounded-md": path === href,
+        "rounded-md bg-blue-100/10": path === href,
       })}
       href={href}
     >

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { BudgetItem as Item } from "@prisma/client";
+import { BudgetItem as Item, Prisma } from "@prisma/client";
 import useBudgetInspector from "@/hooks/zustand/use-budget-inspector";
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import { EditableInput } from "./editable-input";
 import { updateItemById } from "@/actions/budget/item";
 
 type Props = {
-  item: Item;
+  item: Prisma.BudgetItemGetPayload<{ include: { transactions: true } }>;
 };
 
 export default function BudgetItem({ item }: Props) {
@@ -40,7 +40,12 @@ export default function BudgetItem({ item }: Props) {
         <input checked={isSelectd} type="checkbox" className="" />
         <div className="w-2/5">
           <h1 className="mb-1 capitalize">{item.name}</h1>
-          <div className="h-1 rounded-sm bg-green-500" />
+          <div className="h-1 w-full overflow-hidden rounded-sm bg-gray-300">
+            <div
+              className="h-full bg-green-500"
+              style={{ width: `${(item.available / item.assigned) * 100}%` }}
+            />
+          </div>
         </div>
         <div className="w-1/5 text-center">
           <EditableInput
@@ -49,6 +54,20 @@ export default function BudgetItem({ item }: Props) {
             prefix="$"
             value={item.assigned}
           />
+        </div>
+        <div className="w-1/5 text-center">
+          {item.transactions.length && (
+            <div
+              className={cn({
+                "text-red-500": item.transactions[0].type === "OUTFLOW",
+              })}
+            >
+              <span className="text-semibold mr-2 text-xl">
+                {item.transactions[0].type === "OUTFLOW" ? "-" : "+"}
+              </span>
+              <span>{item.transactions[0].amount}</span>
+            </div>
+          )}
         </div>
         <div className="w-1/5 text-center">
           <h1>$ {item.available}</h1>

@@ -2,6 +2,7 @@
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import type { TBankAccount } from "@/types/bank-account";
+import { revalidatePath } from "next/cache";
 export default async function create(account: TBankAccount) {
   const user = await currentUser();
   if (!user || !user.id) return { message: "user not found" };
@@ -13,5 +14,6 @@ export default async function create(account: TBankAccount) {
       userId: user.id,
     },
   });
+  revalidatePath("/budget");
   return data;
 }

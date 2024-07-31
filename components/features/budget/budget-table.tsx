@@ -7,7 +7,9 @@ import AddCategory from "./add-category";
 import { Category, Prisma } from "@prisma/client";
 
 type Props = {
-  categories: Prisma.CategoryGetPayload<{ include: { budgetItems: true } }>[];
+  categories: Prisma.CategoryGetPayload<{
+    include: { budgetItems: { include: { transactions: true } } };
+  }>[];
 };
 
 export default function BudgetTable({ categories }: Props) {
@@ -23,8 +25,12 @@ export default function BudgetTable({ categories }: Props) {
           <div className="flex w-2/5">
             <span className="uppercase">Categroy</span>
           </div>
+
           <div className="w-1/5 text-center">
             <span> Assigned</span>
+          </div>
+          <div className="w-1/5 text-center">
+            <span>Activity</span>
           </div>
           <div className="w-1/5 text-center">
             <span>Available</span>

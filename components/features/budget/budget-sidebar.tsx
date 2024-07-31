@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus, BarChart } from "lucide-react";
+import { BarChart } from "lucide-react";
 import LinkItem from "./link-item";
 
 import {
@@ -13,6 +13,8 @@ import {
 import AddAccount from "./add-accuont";
 import Accounts from "./accounts";
 import { getUserAccounts } from "@/actions/account";
+import { LogoutButton } from "@/components/auth/logout-button";
+import { ExitIcon } from "@radix-ui/react-icons";
 
 type Props = {};
 
@@ -31,7 +33,14 @@ export default async function BudgetSidebar({}: Props) {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuItem>New Tab</DropdownMenuItem>
-          <DropdownMenuItem>New Window</DropdownMenuItem>
+          <DropdownMenuItem>
+            <LogoutButton>
+              <div className="flex items-center gap-2">
+                <ExitIcon />
+                Logout
+              </div>
+            </LogoutButton>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
         </DropdownMenuContent>
       </DropdownMenu>
