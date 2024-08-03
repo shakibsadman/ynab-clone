@@ -29,6 +29,7 @@ model User {
   budgets                     Budget[]
   categories                  Category []
   bank_accounts               BankAccount []
+  transactions                Transaction []
   is_first_login              Boolean @default(true)
 }
 
@@ -69,20 +70,20 @@ model Category {
 }
 
 model BudgetItem {
-  id         String      @id @default(cuid())
+  id         String           @id @default(cuid())
   name       String
   group      String?
   value      String? 
-  assigned   Float    @default(0)
-  activity   Float    @default(0)
-  available  Float    @default(0)
-  target     Float?   @default(0)
-  budget     Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id])
+  assigned   Float            @default(0)
+  activity   Float            @default(0)
+  available  Float            @default(0)
+  target     Float?           @default(0)
+  budget     Budget           @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category   Category         @relation(fields: [categoryId], references: [id])
   categoryId String
   budgetId   String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
   transactions Transaction []
 }
 
@@ -109,15 +110,20 @@ model Account {
 
 
 model Transaction {
-  id           String        @id @default(cuid())
+  id           String                @id @default(cuid())
+  user         User                  @relation(fields: [userId], references: [id])
+  userId       String         
   amount       Float
   type         TransactionType
-  date         DateTime   @default(now())
+  date         DateTime              @default(now())
   description  String?
-  budgetItem   BudgetItem @relation(fields: [budgetItemId], references: [id])
+  budgetItem   BudgetItem            @relation(fields: [budgetItemId], references: [id])
   budgetItemId String
-  account      BankAccount    @relation(fields: [accountId], references: [id])
+  account      BankAccount           @relation(fields: [accountId], references: [id])
   accountId    String
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  
 }
 
 

@@ -10,6 +10,20 @@ export const getCategories = async () => {
 
   const categories = await db.category.findMany({
     where: { userId: user?.id },
+    include: {
+      budgetItems: {
+        orderBy: {
+          createdAt: "asc",
+        },
+        include: {
+          transactions: {
+            orderBy: {
+              date: "asc",
+            },
+          },
+        },
+      },
+    },
   });
   return categories;
 };
