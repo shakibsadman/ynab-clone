@@ -2,7 +2,7 @@ import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "@/lib/db";
-import { getVerificationTokenByEmail } from "@/data/verificiation-token";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 
@@ -68,7 +68,7 @@ export const generateVerificationToken = async (email: string) => {
     });
   }
 
-  const verficationToken = await db.verificationToken.create({
+  const verificationToken = await db.verificationToken.create({
     data: {
       email,
       token,
@@ -76,5 +76,5 @@ export const generateVerificationToken = async (email: string) => {
     }
   });
 
-  return verficationToken;
+  return verificationToken;
 };
